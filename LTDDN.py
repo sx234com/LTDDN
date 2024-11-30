@@ -147,8 +147,7 @@ def drop_connect(x, drop_connect_rate, training):
     keep_prob = 1.0 - drop_connect_rate
     batch_size = x.shape[0]
     random_tensor = keep_prob
-    random_tensor += torch.rand([batch_size, 1, 1, 1], dtype=x.dtype, device=x.device)#batch_size会导致可视化出错
-    #random_tensor += torch.rand([1, 1, 1, 1])  # 这句话是为了解决获取层的名字错误而写的，模型实际训练和使用的时候要注释掉
+    random_tensor += torch.rand([batch_size, 1, 1, 1], dtype=x.dtype, device=x.device)
     binary_mask = torch.floor(random_tensor)
     x = (x / keep_prob) * binary_mask
     return x
