@@ -201,7 +201,7 @@ class FCCSModule(nn.Module):
 
         # Get the channel index for the top 1/a
         num_channels = sorted_indices.size(1)
-        num_select_channels = int(num_channels // self.a)  # 30%的通道数量
+        num_select_channels = int(num_channels // self.a) 
 
         top_k_indices = sorted_indices[:, :num_select_channels]
 
@@ -221,7 +221,6 @@ class FeatureReuseModule(nn.Module):
         remain_num=self.oup-selected_num
 
         if(selected_num>0):
-            # 开启选择的情况下
             self.FCCS=FCCSModule(kernel_size=3,a=ratio)
             # FES
             self.tranditional_conv = nn.Sequential(
@@ -237,7 +236,6 @@ class FeatureReuseModule(nn.Module):
                 nn.ReLU(inplace=True) if relu else nn.Sequential(),
             )
         else:
-            #不选择的情况
             selected_num = math.ceil(oup / ratio)
             remain_num = selected_num * (ratio - 1)
             # FES
